@@ -2,7 +2,7 @@ package invoicer.services
 
 import java.nio.file.{Files, Paths}
 
-import invoicer.config.AppConfig
+import config.AppConfig
 import invoicer.model.{Company, CompanyBasic, Invoice}
 
 class InvoiceService(invoiceNumber:Int, payee:Company, payer:CompanyBasic) extends AppConfig {

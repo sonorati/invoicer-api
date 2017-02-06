@@ -4,3 +4,4 @@
 
 
 POST    /invoice/:number/days/:days     controllers.InvoiceController.generate(number:Int, days:Int)
+GET    /sayhi                           controllers.InvoiceController.sayHi()

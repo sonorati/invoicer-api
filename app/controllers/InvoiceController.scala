@@ -23,4 +23,7 @@ class InvoiceController @Inject()(invoicer: Invoicer) extends Controller {
     Ok(invoicer.generateInvoice(invoiceNumber, daysWorked))
   }
 
+  def sayHi() = Action {
+    Ok("Here it is!")
+  }
 }

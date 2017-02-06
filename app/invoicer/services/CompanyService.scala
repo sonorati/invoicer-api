@@ -1,6 +1,6 @@
 package invoicer.services
 
-import invoicer.config.AppConfig
+import config.AppConfig
 import invoicer.model.{Company, CompanyBasic}
 import play.api.libs.json.Json
 

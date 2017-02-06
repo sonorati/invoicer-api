@@ -1,4 +1,4 @@
-package invoicer.config
+package config
 
 import java.io.InputStream
 import java.nio.file.Files._
