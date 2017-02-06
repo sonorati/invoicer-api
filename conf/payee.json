@@ -1,0 +1,16 @@
+{
+  "basicData" : {
+    "name": "Super Consultancy Company.",
+    "address": "456 Some address, London",
+    "postCode": "XYZ5 3XK"
+  },
+  "description": "witchcraft and sorcery",
+  "dailyRate": 123,
+  "vatNumber": "538 1234 45",
+  "companyRegisteredNumber": "9876543",
+  "paymentDetails": {
+    "bank": "MyBank",
+    "accountNumber": 999999,
+    "sortCode": "99-99-99"
+  }
+}
