@@ -1,0 +1,32 @@
+{
+  "name":"Jon Doe",
+  "invoice":"JD0000012",
+  "invoiceNumber":12,
+  "daysWorked":21,
+  "created":"24-04-2015",
+  "description":"Software development",
+  "company": {
+    "basicData" : {
+      "name": "Super Consultancy Company.",
+      "address": "456 Some address, London",
+      "postCode": "XYZ5 3XK"
+    },
+    "description": "witchcraft and sorcery",
+    "dailyRate": 123,
+    "vatNumber": "538 1234 45",
+    "companyRegisteredNumber": "9876543",
+    "paymentDetails": {
+      "bank": "MyBank",
+      "accountNumber": 999999,
+      "sortCode": "99-99-99"
+    }
+  },
+  "payer": {
+    "name": "Company name Ltd.",
+    "address": "Address goes here, New York",
+    "postCode": "POST CODE"
+  }
+}
+
+
+
