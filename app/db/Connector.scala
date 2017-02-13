@@ -1,9 +1,13 @@
 package db
 
+import java.util.concurrent.TimeUnit
+
 import com.typesafe.config.ConfigFactory
+import reactivemongo.api.collections.bson.BSONCollection
 import reactivemongo.api.{DefaultDB, MongoConnection, MongoDriver}
 
-import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 
 object Connector {
 
@@ -20,5 +24,8 @@ object Connector {
     dn <- Future(parsedUri.db.get)
     db <- con.database(dn)
   } yield db
+
+
+  def collection(name: String): BSONCollection = Await.result(database.map(_.collection(name)), Duration(30, TimeUnit.SECONDS))
 
 }
