@@ -3,6 +3,9 @@
 # ~~~~
 
 
-POST    /invoice/:number/days/:days     controllers.InvoiceController.generate(number:Int, days:Int)
-GET     /invoice/:number                controllers.InvoiceController.getInvoice(number:Int)
-GET    /sayhi                           controllers.InvoiceController.sayHi()
+POST    /invoice/:number/days/:days      controllers.InvoiceController.generate(number:Int, days:Int)
+POST    /invoice/customer/create         controllers.InvoiceController.saveCustomer
+GET     /invoice/customer/all            controllers.InvoiceController.findCustomers
+GET     /invoice/:number                 controllers.InvoiceController.getInvoice(number:Int)
+
+GET    /sayhi                            controllers.InvoiceController.sayHi()

@@ -1,13 +1,28 @@
 package services
 
-import invoicer.services.{CompanyService, InvoiceService}
+import javax.inject.Inject
 
-class Invoicer {
+import invoicer.model.Customer
+import invoicer.services.{CompanyService, InvoiceService}
+import invoicer.store.CustomerStore
+
+import scala.concurrent.Future
+
+class Invoicer @Inject()(customerStore: CustomerStore) {
 
   def generateInvoice(daysWorked:Int, invoiceNumber:Int):String = {
     val company = new CompanyService
     val invoicer = new InvoiceService(invoiceNumber, company.makePayee(), company.makePayer())
     invoicer.generatePDF(daysWorked, invoiceNumber)
     s"Invoice $invoiceNumber generated"
+  }
+
+  def saveCustomer(customer: Customer): Unit = {
+    customerStore.saveCustomer(customer)
+  }
+
+  def findCustomers(): Future[List[Customer]] = {
+    val companies: Future[List[Customer]] = customerStore.findAllCustomers
+    companies
   }
 }
