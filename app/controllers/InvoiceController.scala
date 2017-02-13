@@ -8,7 +8,6 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import services.Invoicer
 
-import scala.concurrent.Future
 import scala.io.Source
 
 @Singleton
@@ -25,7 +24,7 @@ class InvoiceController @Inject()(invoicer: Invoicer) extends Controller with Ap
     Ok(Source.fromInputStream(is).mkString)
   }
 
-  def saveCustomer() = Action {request =>
+  def saveCustomer = Action { request =>
     val json = request.body.asJson.get
     val customer = json.as[Customer]
     invoicer.saveCustomer(customer)
@@ -33,9 +32,8 @@ class InvoiceController @Inject()(invoicer: Invoicer) extends Controller with Ap
   }
 
   def findCustomers = Action.async {
-    val customers: Future[List[Customer]] = invoicer.findCustomers()
-    customers.map { seq =>
-      Ok(Json.toJson(seq))
+    invoicer.findCustomers map { customers =>
+      Ok(Json.toJson(customers))
     }
   }
 

@@ -11,21 +11,17 @@ import scala.concurrent.Future
 
 class CustomerStore {
 
-  def customers: Future[BSONCollection] =
-    Connector.database.map(_.collection("customers"))
+  val collection: BSONCollection = Connector.collection("customers")
 
   def saveCustomer(customer: Customer): Unit = {
-    Logger.info(s"save customer")
-    customers flatMap (_.insert(customer))
+    Logger.info("save customer")
+    collection.insert(customer)
   }
 
   def findAllCustomers(): Future[List[Customer]] = {
     Logger.info(s"Find all customers")
-
-    customers flatMap (_.
-      find(BSONDocument()).
-      cursor[Customer]().
-      collect[List]())
+    collection.find(BSONDocument())
+      .cursor[Customer]()
+      .collect[List]()
   }
-
 }
