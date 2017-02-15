@@ -8,6 +8,7 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import services.Invoicer
 
+import scala.concurrent.Future
 import scala.io.Source
 
 @Singleton
@@ -19,9 +20,11 @@ class InvoiceController @Inject()(invoicer: Invoicer) extends Controller with Ap
     Ok(invoicer.generateInvoice(invoiceNumber, daysWorked))
   }
 
-  def getInvoice(number:Int) = Action {
-    val is = getClass.getClassLoader.getResourceAsStream("get-invoice-sample.json")
-    Ok(Source.fromInputStream(is).mkString)
+  def getInvoice(number:Int) = Action.async {
+    val inputStream = Future(getClass.getClassLoader.getResourceAsStream("get-invoice-sample.json"))
+    inputStream.map { is =>
+      Ok(Source.fromInputStream(is).mkString)
+    }
   }
 
   def saveCustomer = Action { request =>
