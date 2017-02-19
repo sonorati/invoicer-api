@@ -22,7 +22,6 @@ class Invoicer @Inject()(customerStore: CustomerStore) {
   }
 
   def findCustomers(): Future[List[Customer]] = {
-    val companies: Future[List[Customer]] = customerStore.findAllCustomers
-    companies
+    customerStore.findAllCustomers
   }
 }

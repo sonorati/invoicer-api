@@ -8,4 +8,7 @@ POST    /invoice/customer/create         controllers.InvoiceController.saveCusto
 GET     /invoice/customer/all            controllers.InvoiceController.findCustomers
 GET     /invoice/:number                 controllers.InvoiceController.getInvoice(number:Int)
 
+OPTIONS    /                             controllers.InvoiceController.options(path: String ?= "")
+OPTIONS    /*path                        controllers.InvoiceController.options(path)
+
 GET    /sayhi                            controllers.InvoiceController.sayHi()
