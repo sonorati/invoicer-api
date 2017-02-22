@@ -17,6 +17,10 @@ class Invoicer @Inject()(customerStore: CustomerStore) {
     s"Invoice $invoiceNumber generated"
   }
 
+  def deleteCustomer(id: String): Unit = {
+    customerStore.deleteCustomer(id)
+  }
+
   def saveCustomer(customer: Customer): Unit = {
     customerStore.saveCustomer(customer)
   }
