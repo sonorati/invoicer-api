@@ -13,8 +13,13 @@ class CustomerStore {
 
   val collection: BSONCollection = Connector.collection("customers")
 
+  def deleteCustomer(id: String): Unit = {
+    Logger.info("Delete customer " + id)
+    collection.remove(selector = BSONDocument("customerId" -> id))
+  }
+
   def saveCustomer(customer: Customer): Unit = {
-    Logger.info("save customer")
+    Logger.info("Save customer")
     collection.insert(customer)
   }
 

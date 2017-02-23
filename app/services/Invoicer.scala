@@ -17,12 +17,15 @@ class Invoicer @Inject()(customerStore: CustomerStore) {
     s"Invoice $invoiceNumber generated"
   }
 
+  def deleteCustomer(id: String): Unit = {
+    customerStore.deleteCustomer(id)
+  }
+
   def saveCustomer(customer: Customer): Unit = {
     customerStore.saveCustomer(customer)
   }
 
   def findCustomers(): Future[List[Customer]] = {
-    val companies: Future[List[Customer]] = customerStore.findAllCustomers
-    companies
+    customerStore.findAllCustomers
   }
 }
