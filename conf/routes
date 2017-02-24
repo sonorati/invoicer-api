@@ -2,6 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# --- Invoices
+
+GET     /invoice/company/:companyId/invoices    controllers.InvoiceController.invoices(companyId:String)
 
 POST    /invoice/:number/days/:days      controllers.InvoiceController.generate(number:Int, days:Int)
 POST    /invoice/customer/create         controllers.InvoiceController.saveCustomer
