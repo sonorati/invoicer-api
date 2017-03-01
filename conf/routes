@@ -7,12 +7,7 @@
 GET         /invoice/company/:companyId/invoices    controllers.InvoiceController.invoices(companyId:String)
 
 POST        /invoice/:number/days/:days             controllers.InvoiceController.generate(number:Int, days:Int)
-POST        /invoice/customer/create                controllers.InvoiceController.saveCustomer
-GET         /invoice/customer/all                   controllers.InvoiceController.findCustomers
-DELETE      /invoice/customer/delete/:id            controllers.InvoiceController.deleteCustomer(id:String)
 GET         /invoice/:number                        controllers.InvoiceController.getInvoice(number:Int)
 
-OPTIONS     /                                       controllers.InvoiceController.options(path: String ?= "")
-OPTIONS     /*path                                  controllers.InvoiceController.options(path)
-
-GET         /sayhi                                  controllers.InvoiceController.sayHi()
+OPTIONS     /                                       controllers.OptionController.options(path: String ?= "")
+OPTIONS     /*path                                  controllers.OptionController.options(path)

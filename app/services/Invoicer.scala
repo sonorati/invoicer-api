@@ -2,13 +2,13 @@ package services
 
 import javax.inject.Inject
 
-import invoicer.model.{Customer, Invoice}
+import invoicer.model.Invoice
 import invoicer.services.{CompanyService, InvoiceService}
-import invoicer.store.{CustomerStore, InvoiceStore}
+import invoicer.store.InvoiceStore
 
 import scala.concurrent.Future
 
-class Invoicer @Inject()(customerStore: CustomerStore, invoiceStore: InvoiceStore) {
+class Invoicer @Inject()(invoiceStore: InvoiceStore) {
 
   def generateInvoice(daysWorked:Int, invoiceNumber:Int):String = {
     val company = new CompanyService
@@ -17,19 +17,6 @@ class Invoicer @Inject()(customerStore: CustomerStore, invoiceStore: InvoiceStor
     s"Invoice $invoiceNumber generated"
   }
 
-  def invoices(): Future[List[Invoice]] = {
-    invoiceStore.invoices
-  }
+  def invoices(): Future[List[Invoice]] = invoiceStore.invoices()
 
-  def deleteCustomer(id: String): Unit = {
-    customerStore.deleteCustomer(id)
-  }
-
-  def saveCustomer(customer: Customer): Unit = {
-    customerStore.saveCustomer(customer)
-  }
-
-  def findCustomers(): Future[List[Customer]] = {
-    customerStore.findAllCustomers
-  }
 }

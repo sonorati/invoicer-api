@@ -10,8 +10,6 @@ Controllers
 - InvoiceController.scala:
 
     POST    /invoice/:number/days/:days
-    POST    /invoice/customer/create
-    GET     /invoice/customer/all
     GET     /invoice/:number
 
 
