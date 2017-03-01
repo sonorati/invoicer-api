@@ -2,14 +2,17 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# --- Invoices
 
-POST    /invoice/:number/days/:days      controllers.InvoiceController.generate(number:Int, days:Int)
-POST    /invoice/customer/create         controllers.InvoiceController.saveCustomer
-GET     /invoice/customer/all            controllers.InvoiceController.findCustomers
-DELETE  /invoice/customer/delete/:id     controllers.InvoiceController.deleteCustomer(id:String)
-GET     /invoice/:number                 controllers.InvoiceController.getInvoice(number:Int)
+GET         /invoice/company/:companyId/invoices    controllers.InvoiceController.invoices(companyId:String)
 
-OPTIONS    /                             controllers.InvoiceController.options(path: String ?= "")
-OPTIONS    /*path                        controllers.InvoiceController.options(path)
+POST        /invoice/:number/days/:days             controllers.InvoiceController.generate(number:Int, days:Int)
+POST        /invoice/customer/create                controllers.InvoiceController.saveCustomer
+GET         /invoice/customer/all                   controllers.InvoiceController.findCustomers
+DELETE      /invoice/customer/delete/:id            controllers.InvoiceController.deleteCustomer(id:String)
+GET         /invoice/:number                        controllers.InvoiceController.getInvoice(number:Int)
 
-GET    /sayhi                            controllers.InvoiceController.sayHi()
+OPTIONS     /                                       controllers.InvoiceController.options(path: String ?= "")
+OPTIONS     /*path                                  controllers.InvoiceController.options(path)
+
+GET         /sayhi                                  controllers.InvoiceController.sayHi()

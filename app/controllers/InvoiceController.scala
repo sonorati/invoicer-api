@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 
 import config.AppConfig
-import invoicer.model.Customer
+import invoicer.model.{Customer, Invoice}
 import play.api.libs.json._
 import play.api.mvc._
 import services.Invoicer
@@ -24,6 +24,12 @@ class InvoiceController @Inject()(invoicer: Invoicer) extends Controller with Ap
     val inputStream = Future(getClass.getClassLoader.getResourceAsStream("get-invoice-sample.json"))
     inputStream.map { is =>
       Ok(Source.fromInputStream(is).mkString)
+    }
+  }
+
+  def invoices(companyId: String) = Action.async {
+    invoicer.invoices() map { invoices =>
+      Ok(Json.toJson(invoices)).withHeaders(ACCESS_CONTROL_ALLOW_ORIGIN -> s"*")
     }
   }
 
