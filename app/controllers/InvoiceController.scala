@@ -6,6 +6,7 @@ import config.AppConfig
 import play.api.libs.json._
 import play.api.mvc._
 import services.Invoicer
+import views.InvoiceView
 
 import scala.concurrent.Future
 import scala.io.Source

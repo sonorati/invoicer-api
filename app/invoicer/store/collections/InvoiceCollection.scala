@@ -5,4 +5,4 @@ case class Company(name: String,
                    address: String,
                    postCode: String)
 
-case class InvoiceCollection(_id: Int, number: Int, company: Company)
+case class InvoiceCollection(_id: Int, number: Int, amount: Double, created: Long, company: Company)

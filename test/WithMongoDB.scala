@@ -1,14 +1,14 @@
 import org.mongodb.scala.{MongoClient, MongoDatabase, Observable, Observer, Subscription}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
-import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FlatSpec, Matchers}
 
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future, Promise}
 import scala.util.{Failure, Success, Try}
 
-trait WithMongoDB extends FlatSpec with Matchers with ScalaFutures with BeforeAndAfterAll {
+trait WithMongoDB extends FlatSpec with Matchers with ScalaFutures with BeforeAndAfterAll with BeforeAndAfterEach {
 
   implicit val defaultPatience = PatienceConfig(timeout = Span(60, Seconds), interval = Span(5, Millis))
   implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
@@ -22,7 +22,6 @@ trait WithMongoDB extends FlatSpec with Matchers with ScalaFutures with BeforeAn
   case class User(_id: Int, username: String, age: Int, hobbies: List[String], contacts: List[Contact])
   case class Optional(_id: Int, optional: Option[Int])
 
-
   def isMongoDBOnline: Boolean = {
     Try(Await.result(MongoClient(DEFAULT_URI).listDatabaseNames(), Duration(5, "second"))).isSuccess
   }
@@ -35,11 +34,17 @@ trait WithMongoDB extends FlatSpec with Matchers with ScalaFutures with BeforeAn
     }
   }
 
+
+  val client = mongoClient()
+  val databaseName = "invoicer"
+  val mongoDatabase = client.getDatabase(databaseName)
+
+  protected override def beforeEach() = {
+    mongoDatabase.drop()
+  }
+
   def withDatabase(dbName: String)(testCode: MongoDatabase => Any) {
     checkMongoDB()
-    val client = mongoClient()
-    val databaseName = "invoicer"
-    val mongoDatabase = client.getDatabase(databaseName)
     try testCode(mongoDatabase) // "loan" the fixture to the test
     finally {
       // clean up the fixture
