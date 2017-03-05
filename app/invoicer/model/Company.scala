@@ -1,18 +1,14 @@
 package invoicer.model
 
-import org.joda.time.{DateTime, DateTimeZone}
-import org.joda.time.format.ISODateTimeFormat
+import org.joda.time.DateTime
 import play.api.libs.json.Json
-import reactivemongo.bson.{BSONDateTime, BSONHandler, Macros}
-
 case class Company(
                     dailyRate: Int,
                     basicData: CompanyBasic,
                     vatNumber: String,
                     companyRegisteredNumber: String,
                     paymentDetails: PaymentDetails,
-                    description: String
-                    )
+                    description: String)
 
 case class CompanyBasic(name: String,
                         address: String,
@@ -21,8 +17,7 @@ case class CompanyBasic(name: String,
 case class PaymentDetails(
                            bank: String,
                            accountNumber: Int,
-                           sortCode: String
-                           )
+                           sortCode: String)
 case class Invoice(
                     number: Int,
                     payee: Company,
@@ -30,9 +25,7 @@ case class Invoice(
                     daysWorked: Int,
                     amountToPayPerDay: Double,
                     date: DateTime = DateTime.now,
-                    percentage: Double = 20
-                    ) {
-
+                    percentage: Double = 20) {
   val vat: Double = amountToPayPerDay * (percentage / 100)
   val totalWithoutVat = amountToPayPerDay * daysWorked
   val totalVat = vat * daysWorked
@@ -41,16 +34,6 @@ case class Invoice(
 }
 
 object Invoice {
-  DateTimeZone.setDefault(DateTimeZone.UTC)
-  implicit object BSONDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
-    val fmt = ISODateTimeFormat.dateTime()
-    def read(time: BSONDateTime) = new DateTime(time.value)
-    def write(jdtime: DateTime) = BSONDateTime(jdtime.getMillis)
-  }
-  implicit val paymentDetailsHandler = Macros.handler[PaymentDetails]
-  implicit val companyBasicHandler = Macros.handler[CompanyBasic]
-  implicit val companyHandler = Macros.handler[Company]
-  implicit val invoiceHandler = Macros.handler[Invoice]
   implicit val companyBasic = Json.format[CompanyBasic]
   implicit val paymentDetails = Json.format[PaymentDetails]
   implicit val company = Json.format[Company]
